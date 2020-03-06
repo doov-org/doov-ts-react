@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Metadata } from '../Metadata';
+import { Metadata } from 'doov';
 import { HtmlClass } from './HtmlClass';
-import { BinaryMetadata } from '../BinaryMetadata';
+import { BinaryMetadata } from 'doov';
 import {
   AND,
   ELSE,
@@ -19,12 +19,12 @@ import {
   MONTH_OF,
   DATE_OF,
   POSITION,
-} from '../../lang/DefaultOperators';
-import { Operator, OperatorReturnType } from '../../Operator';
-import { ValueMetadata } from '../ValueMetadata';
+} from 'doov';
+import { Operator, OperatorReturnType } from 'doov/dist/types/dsl/Operator';
+import { ValueMetadata } from 'doov';
 import { Lang, opStrings } from './language/Localization';
-import { ValidationRule } from '../../lang/ValidationRule';
-import { FunctionMetadata } from '../../../doov';
+import { ValidationRule } from 'doov';
+import { FunctionMetadata } from 'doov';
 export { Lang };
 
 export interface HtmlProps {
@@ -495,4 +495,5 @@ export const GetHtml = (props: HtmlPropsExtended) => {
     case 'MULTIPLE_VALIDATIONS':
       return <MultipleValidations metadata={metadata} parent={parent} validations={validations} fields={fields} />;
   }
+  return <></>;
 };

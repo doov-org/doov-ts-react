@@ -1,12 +1,10 @@
 import * as React from 'react';
-import * as DOOV from '../../../../src/doov';
+import * as DOOV from 'doov';
 import { mount, ReactWrapper } from 'enzyme';
 import { Model, User } from '../../../model';
 import { GetHtml } from '../../../../src/dsl/meta/ast/HtmlRenderer';
 import { HtmlSelector } from '../../../HtmlSelector';
-import { BooleanFunction } from '../../../../src/dsl/lang/BooleanFunction';
-import { count, when } from '../../../../src/doov';
-import { SingleValidationRule } from '../../../../src/dsl/lang/SingleValidationRule';
+import { BooleanFunction, count, when, SingleValidationRule } from 'doov';
 
 let A, B: BooleanFunction;
 let wrapper: ReactWrapper;

@@ -1,10 +1,9 @@
 import { GetHtml } from '../../../../src/dsl/meta/ast/HtmlRenderer';
 import { HtmlSelector } from '../../../HtmlSelector';
-import { BooleanFunction } from '../../../../src/dsl/lang/BooleanFunction';
-import { ValidationRule, when } from '../../../../src/doov';
+import { ValidationRule, when, BooleanFunction } from 'doov';
 import { mount, ReactWrapper } from 'enzyme';
 import * as React from 'react';
-import * as DOOV from '../../../../src/doov';
+import * as DOOV from 'doov';
 
 let A, B: BooleanFunction;
 let wrapper: ReactWrapper;
