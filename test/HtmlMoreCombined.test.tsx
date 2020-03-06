@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as DOOV from 'doov';
-import { Model, User } from '../../../model';
+import { Model, User } from './model';
 import { mount, ReactWrapper } from 'enzyme';
-import { GetHtml } from '../../../../src/dsl/meta/ast/HtmlRenderer';
+import { GetHtml } from '../src/doov-react';
 import { SingleValidationRule } from 'doov';
-import { HtmlSelector } from '../../../HtmlSelector';
+import { HtmlSelector } from './HtmlSelector';
 
 let wrapper: ReactWrapper;
 let rule: SingleValidationRule;

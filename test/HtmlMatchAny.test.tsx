@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as DOOV from 'doov';
 import { matchAny, SingleValidationRule, when, BooleanFunction } from 'doov';
 import { mount, ReactWrapper } from 'enzyme';
-import { Model, User } from '../../../model';
-import { GetHtml } from '../../../../src/dsl/meta/ast/HtmlRenderer';
-import { HtmlSelector } from '../../../HtmlSelector';
+import { Model, User } from './model';
+import { GetHtml } from '../src/doov-react';
+import { HtmlSelector } from './HtmlSelector';
 
 let A, B, C, D: BooleanFunction;
 let wrapper: ReactWrapper;

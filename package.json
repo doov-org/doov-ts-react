@@ -20,7 +20,7 @@
     "type": "git",
     "url": "git://github.com/doov-io/doov-ts-react.git"
   },
-  "source": "src/doov-react.ts",
+  "source": "src/doov-react.tsx",
   "main": "dist/doov-react.js",
   "umd:name": "DOOV",
   "umd:main": "dist/doov-react.umd.js",
