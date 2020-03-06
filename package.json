@@ -1,0 +1,96 @@
+{
+  "name": "doov-ts",
+  "version": "0.0.1",
+  "desciption": "HTML Renderer with React for doov-ts",
+  "homepage": "https://doov.io",
+  "license": "Apache-2.0",
+  "maintainers": [
+    {
+      "name": "Suxue Li",
+      "email": "suxue.li@lesfurets.com",
+      "url": "https://github.com/suxueli"
+    },
+    {
+      "name": "Ozan Gunalp",
+      "email": "ozangunalp@gmail.com",
+      "url": "https://github.com/ozangunalp"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/doov-io/doov-ts-react.git"
+  },
+  "source": "src/doov-react.ts",
+  "main": "dist/doov-react.js",
+  "umd:name": "DOOV",
+  "umd:main": "dist/doov-react.umd.js",
+  "module": "dist/doov-react.es.js",
+  "types": "dist/types/doov-react.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "watch": "rollup -c rollup.config.ts -w",
+    "prebuild": "rimraf dist",
+    "build": "rollup -c rollup.config.ts --environment INCLUDE_DEPS,BUILD:production && typedoc --out docs --mode file src",
+    "test": "jest --watch",
+    "test-ci": "cross-env NODE_ICU_DATA=node_modules/full-icu jest test --coverage --ci --reporters=default --reporters=jest-junit && prettier --check \"{./src/**/*.tsx,./src/**/*.ts,./src/**/*.json}\" && eslint \"./src/**\"",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test-ci",
+    "lint": "eslint \"./src/**\"",
+    "prettier": "prettier --write \"{./src/**/*.tsx,./src/**/*.ts,./src/**/*.json}\""
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@types/jest": "24.0.12",
+    "@types/moment": "2.13.0",
+    "@types/rollup-plugin-json": "3.0.2",
+    "@types/rollup-plugin-sourcemaps": "0.4.2",
+    "@typescript-eslint/eslint-plugin": "1.13.0",
+    "@typescript-eslint/parser": "1.13.0",
+    "@types/enzyme": "^3.10.4",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "cross-env": "5.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "eslint": "5.16.0",
+    "eslint-config-prettier": "4.2.0",
+    "eslint-plugin-prettier": "3.0.1",
+    "full-icu": "1.3.0",
+    "husky": "2.2.0",
+    "jest": "24.8.0",
+    "jest-junit": "6.4.0",
+    "jest-watch-typeahead": "0.3.1",
+    "prettier": "1.17.0",
+    "pretty-quick": "1.10.0",
+    "rimraf": "2.6.3",
+    "rollup": "1.17.0",
+    "rollup-plugin-commonjs": "10.0.1",
+    "rollup-plugin-filesize": "^6.1.1",
+    "rollup-plugin-json": "4.0.0",
+    "rollup-plugin-node-resolve": "5.2.0",
+    "rollup-plugin-sourcemaps": "0.4.2",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-typescript2": "0.22.0",
+    "ts-jest": "24.0.2",
+    "typedoc": "0.14.2",
+    "typescript": "3.4.5"
+  },
+  "dependencies": {
+    "localized-strings": "^0.2.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "doov": "^0.10.9"
+  }
+}
