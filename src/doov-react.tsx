@@ -424,21 +424,21 @@ const TypeConverter = (props: HtmlProps) => {
 
 const Validation = (props: HtmlPropsExtended) => {
   const { metadata, validation, fields } = props;
-  let span_error_empty;
+  let spanErrorEmpty;
   if (validation && validation.hasOwnProperty('errorType')) {
     let validationAny = validation as any;
     if (validationAny.errorType === 'ERROR') {
-      span_error_empty = (
+      spanErrorEmpty = (
         <span className={HtmlClass.CSS_OPERATOR}>{validationAny.messageFunction.metadata.readable}</span>
       );
     } else if (validationAny.errorType === 'EMPTY') {
-      span_error_empty = <span className={HtmlClass.CSS_VALUE}>{validationAny.messageFunction.metadata.readable}</span>;
+      spanErrorEmpty = <span className={HtmlClass.CSS_VALUE}>{validationAny.messageFunction.metadata.readable}</span>;
     }
     return (
       <div className={HtmlClass.CSS_VALIDATION_RULE}>
         <GetHtml metadata={metadata.children!()[0]} fields={fields} />
         &nbsp;
-        {span_error_empty}
+        {spanErrorEmpty}
       </div>
     );
   }
