@@ -1,10 +1,8 @@
-# dOOv-TS
+# dOOv-TS-React
 
-dOOv (Domain Object Oriented Validation) a fluent API for type-safe bean validation and mapping in TypeScript
+React renderer for doov-TS rules.
 
-[![npm version](https://img.shields.io/npm/v/doov.svg?style=flat&color=blue)](https://www.npmjs.com/package/doov)
-[![Build Status](https://travis-ci.org/doov-io/doov-ts.svg?branch=master)](https://travis-ci.org/doov-io/doov-ts)
-[![codecov](https://codecov.io/gh/doov-io/doov-ts/branch/master/graph/badge.svg)](https://codecov.io/gh/doov-io/doov-ts)
+![Node.js CI](https://github.com/doov-io/doov-ts-react/workflows/Node.js%20CI/badge.svg)
 
 ## Local Development
 
@@ -28,7 +26,7 @@ Runs the code formatter Prettier
 
 ## Continuous Integration
 
-### Travis CI
+### Github Actions
 
 Runs `yarn test-ci` which executes all tests, checks for code coverage, formatting errors and linting.
 
