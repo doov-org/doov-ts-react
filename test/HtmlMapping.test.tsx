@@ -1,12 +1,28 @@
 import * as React from 'react';
 import * as DOOV from 'doov';
-import { mount, ReactWrapper } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Model, User } from './model';
 import { GetHtml } from '../src/doov-react';
 import { HtmlSelector } from './HtmlSelector';
+import NARY_OL = HtmlSelector.NARY_OL;
+import BINARY_LI = HtmlSelector.BINARY_LI;
+import NARY_LI = HtmlSelector.NARY_LI;
+import LEAF_LI = HtmlSelector.LEAF_LI;
+import WHEN_UL = HtmlSelector.WHEN_UL;
+import BINARY_UL = HtmlSelector.BINARY_UL;
+import BINARYCHILD_UL = HtmlSelector.BINARYCHILD_UL;
+import UNARY_UL = HtmlSelector.UNARY_UL;
+import TOKEN_VALUE_SPAN = HtmlSelector.TOKEN_VALUE_SPAN;
+import TOKEN_OPERATOR_SPAN = HtmlSelector.TOKEN_OPERATOR_SPAN;
+import TOKEN_FIELD_SPAN = HtmlSelector.TOKEN_FIELD_SPAN;
+import TOKEN_NARY_SPAN = HtmlSelector.TOKEN_NARY_SPAN;
+import TOKEN_WHEN_SPAN = HtmlSelector.TOKEN_WHEN_SPAN;
+import TOKEN_THEN_SPAN = HtmlSelector.TOKEN_THEN_SPAN;
+import TOKEN_ELSE_SPAN = HtmlSelector.TOKEN_ELSE_SPAN;
+import TOKEN_SINGLE_MAPPING_SPAN = HtmlSelector.TOKEN_SINGLE_MAPPING_SPAN;
 import { biConverter, converter, map, mappings, when, MappingRule } from 'doov';
 
-let wrapper: ReactWrapper;
+let doc: HTMLElement;
 let rule: MappingRule;
 
 const dateValue = new Date(2000, 0, 1);
@@ -30,85 +46,85 @@ const stringField2 = DOOV.string(DOOV.field<string, Model>('user', 'name2'));
 /*const linkField0 = DOOV.string(DOOV.field<string, Model>('user', 'links', 0));
 const linkField1 = DOOV.string(DOOV.field<string, Model>('user', 'links', 1));*/
 
-const getTextArray = (node: ReactWrapper) => node.text();
+const getTextArray = (elt: Element) => elt.textContent;
 
 describe('test du mapping', () => {
   it('map to int field ', () => {
     rule = map(18).to(intField);
-    wrapper = mount(<GetHtml metadata={rule.metadata} />);
-    expect(wrapper.find(HtmlSelector.NARY_OL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.NARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.LEAF_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.WHEN_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARYCHILD_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.UNARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_WHEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_THEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_ELSE_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.TOKEN_OPERATOR_SPAN).map(getTextArray)).toEqual(['map', 'to']);
-    expect(wrapper.find(HtmlSelector.TOKEN_VALUE_SPAN).map(getTextArray)).toEqual(['18']);
-    expect(wrapper.find(HtmlSelector.TOKEN_FIELD_SPAN).map(getTextArray)).toEqual(['user.id']);
-    expect(wrapper.find(HtmlSelector.TOKEN_NARY_SPAN).length).toEqual(0);
+    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(LEAF_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(WHEN_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARYCHILD_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(UNARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_WHEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_THEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_ELSE_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(1);
+    expect(Array.from(doc.querySelectorAll(TOKEN_OPERATOR_SPAN)).map(getTextArray)).toEqual(['map', 'to']);
+    expect(Array.from(doc.querySelectorAll(TOKEN_VALUE_SPAN)).map(getTextArray)).toEqual(['18']);
+    expect(Array.from(doc.querySelectorAll(TOKEN_FIELD_SPAN)).map(getTextArray)).toEqual(['user.id']);
+    expect(doc.querySelectorAll(TOKEN_NARY_SPAN).length).toEqual(0);
   });
   it('map to boolean field ', () => {
     rule = map(true).to(boolField);
-    wrapper = mount(<GetHtml metadata={rule.metadata} />);
-    expect(wrapper.find(HtmlSelector.NARY_OL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.NARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.LEAF_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.WHEN_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARYCHILD_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.UNARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_WHEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_THEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_ELSE_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.TOKEN_OPERATOR_SPAN).map(getTextArray)).toEqual(['map', 'to']);
-    expect(wrapper.find(HtmlSelector.TOKEN_VALUE_SPAN).map(getTextArray)).toEqual(['true']);
-    expect(wrapper.find(HtmlSelector.TOKEN_FIELD_SPAN).map(getTextArray)).toEqual(['user.b']);
-    expect(wrapper.find(HtmlSelector.TOKEN_NARY_SPAN).length).toEqual(0);
+    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(LEAF_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(WHEN_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARYCHILD_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(UNARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_WHEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_THEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_ELSE_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(1);
+    expect(Array.from(doc.querySelectorAll(TOKEN_OPERATOR_SPAN)).map(getTextArray)).toEqual(['map', 'to']);
+    expect(Array.from(doc.querySelectorAll(TOKEN_VALUE_SPAN)).map(getTextArray)).toEqual(['true']);
+    expect(Array.from(doc.querySelectorAll(TOKEN_FIELD_SPAN)).map(getTextArray)).toEqual(['user.b']);
+    expect(doc.querySelectorAll(TOKEN_NARY_SPAN).length).toEqual(0);
   });
   it('map to date field ', () => {
     rule = map(dateValue).to(dateField);
-    wrapper = mount(<GetHtml metadata={rule.metadata} />);
-    expect(wrapper.find(HtmlSelector.NARY_OL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.NARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.LEAF_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.WHEN_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARYCHILD_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.UNARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_WHEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_THEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_ELSE_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.TOKEN_OPERATOR_SPAN).map(getTextArray)).toEqual(['map', 'to']);
-    expect(wrapper.find(HtmlSelector.TOKEN_VALUE_SPAN).map(getTextArray)).toEqual([dateString]);
-    expect(wrapper.find(HtmlSelector.TOKEN_FIELD_SPAN).map(getTextArray)).toEqual(['user.birth']);
-    expect(wrapper.find(HtmlSelector.TOKEN_NARY_SPAN).length).toEqual(0);
+    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(LEAF_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(WHEN_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARYCHILD_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(UNARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_WHEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_THEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_ELSE_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(1);
+    expect(Array.from(doc.querySelectorAll(TOKEN_OPERATOR_SPAN)).map(getTextArray)).toEqual(['map', 'to']);
+    expect(Array.from(doc.querySelectorAll(TOKEN_VALUE_SPAN)).map(getTextArray)).toEqual([dateString]);
+    expect(Array.from(doc.querySelectorAll(TOKEN_FIELD_SPAN)).map(getTextArray)).toEqual(['user.birth']);
+    expect(doc.querySelectorAll(TOKEN_NARY_SPAN).length).toEqual(0);
   });
   it('mappings to int field boolean field and date field', () => {
     rule = mappings(map(18).to(intField), map(true).to(boolField), map(dateValue).to(dateField));
-    wrapper = mount(<GetHtml metadata={rule.metadata} />);
-    expect(wrapper.find(HtmlSelector.NARY_OL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.NARY_LI).length).toEqual(3);
-    expect(wrapper.find(HtmlSelector.LEAF_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.WHEN_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARYCHILD_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.UNARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_WHEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_THEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_ELSE_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(3);
-    expect(wrapper.find(HtmlSelector.TOKEN_OPERATOR_SPAN).map(getTextArray)).toEqual([
+    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(NARY_LI).length).toEqual(3);
+    expect(doc.querySelectorAll(LEAF_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(WHEN_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARYCHILD_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(UNARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_WHEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_THEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_ELSE_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(3);
+    expect(Array.from(doc.querySelectorAll(TOKEN_OPERATOR_SPAN)).map(getTextArray)).toEqual([
       'map',
       'to',
       'map',
@@ -116,76 +132,88 @@ describe('test du mapping', () => {
       'map',
       'to',
     ]);
-    expect(wrapper.find(HtmlSelector.TOKEN_VALUE_SPAN).map(getTextArray)).toEqual(['18', 'true', dateString]);
-    expect(wrapper.find(HtmlSelector.TOKEN_FIELD_SPAN).map(getTextArray)).toEqual(['user.id', 'user.b', 'user.birth']);
-    expect(wrapper.find(HtmlSelector.TOKEN_NARY_SPAN).length).toEqual(0);
+    expect(Array.from(doc.querySelectorAll(TOKEN_VALUE_SPAN)).map(getTextArray)).toEqual(['18', 'true', dateString]);
+    expect(Array.from(doc.querySelectorAll(TOKEN_FIELD_SPAN)).map(getTextArray)).toEqual([
+      'user.id',
+      'user.b',
+      'user.birth',
+    ]);
+    expect(doc.querySelectorAll(TOKEN_NARY_SPAN).length).toEqual(0);
   });
   it('mapping date to stringfield with converter', () => {
     rule = map(dateValue)
       .using(converter(d => d.toString(), 'date to string'))
       .to(stringField);
-    wrapper = mount(<GetHtml metadata={rule.metadata} />);
-    expect(wrapper.find(HtmlSelector.NARY_OL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.NARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.LEAF_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.WHEN_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARYCHILD_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.UNARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_WHEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_THEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_ELSE_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.TOKEN_OPERATOR_SPAN).map(getTextArray)).toEqual(['map', 'using', 'to']);
-    expect(wrapper.find(HtmlSelector.TOKEN_VALUE_SPAN).map(getTextArray)).toEqual([dateString, "'date to string'"]);
-    expect(wrapper.find(HtmlSelector.TOKEN_FIELD_SPAN).map(getTextArray)).toEqual(['user.name']);
-    expect(wrapper.find(HtmlSelector.TOKEN_NARY_SPAN).length).toEqual(0);
+    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(LEAF_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(WHEN_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARYCHILD_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(UNARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_WHEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_THEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_ELSE_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(1);
+    expect(Array.from(doc.querySelectorAll(TOKEN_OPERATOR_SPAN)).map(getTextArray)).toEqual(['map', 'using', 'to']);
+    expect(Array.from(doc.querySelectorAll(TOKEN_VALUE_SPAN)).map(getTextArray)).toEqual([
+      dateString,
+      "'date to string'",
+    ]);
+    expect(Array.from(doc.querySelectorAll(TOKEN_FIELD_SPAN)).map(getTextArray)).toEqual(['user.name']);
+    expect(doc.querySelectorAll(TOKEN_NARY_SPAN).length).toEqual(0);
   });
   it('mapping 2 stringfields to stringfield2 with converter', () => {
     rule = map(stringField, stringField2)
       .using(biConverter((s1, s2) => s1 + ' ' + s2, 'combine names'))
       .to(stringField2);
-    wrapper = mount(<GetHtml metadata={rule.metadata} />);
-    expect(wrapper.find(HtmlSelector.NARY_OL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.NARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.LEAF_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.WHEN_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARYCHILD_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.UNARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_WHEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_THEN_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_ELSE_SPAN).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.TOKEN_OPERATOR_SPAN).map(getTextArray)).toEqual(['map', 'and', 'using', 'to']);
-    expect(wrapper.find(HtmlSelector.TOKEN_VALUE_SPAN).map(getTextArray)).toEqual(["'combine names'"]);
-    expect(wrapper.find(HtmlSelector.TOKEN_FIELD_SPAN).map(getTextArray)).toEqual([
+    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(LEAF_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(WHEN_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARYCHILD_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(UNARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_WHEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_THEN_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_ELSE_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(1);
+    expect(Array.from(doc.querySelectorAll(TOKEN_OPERATOR_SPAN)).map(getTextArray)).toEqual([
+      'map',
+      'and',
+      'using',
+      'to',
+    ]);
+    expect(Array.from(doc.querySelectorAll(TOKEN_VALUE_SPAN)).map(getTextArray)).toEqual(["'combine names'"]);
+    expect(Array.from(doc.querySelectorAll(TOKEN_FIELD_SPAN)).map(getTextArray)).toEqual([
       'user.name',
       'user.name2',
       'user.name2',
     ]);
-    expect(wrapper.find(HtmlSelector.TOKEN_NARY_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_NARY_SPAN).length).toEqual(0);
   });
   it('conditional mapping to booleanField', () => {
     rule = when(dateField.ageAt(dateField2).greaterOrEquals(18))
       .then(map(true).to(boolField))
       .otherwise(map(false).to(boolField));
-    wrapper = mount(<GetHtml metadata={rule.metadata} />);
-    expect(wrapper.find(HtmlSelector.NARY_OL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.NARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.LEAF_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.WHEN_UL).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.BINARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARYCHILD_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.UNARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_WHEN_SPAN).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.TOKEN_THEN_SPAN).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.TOKEN_ELSE_SPAN).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(2);
-    expect(wrapper.find(HtmlSelector.TOKEN_OPERATOR_SPAN).map(getTextArray)).toEqual([
+    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(LEAF_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(WHEN_UL).length).toEqual(1);
+    expect(doc.querySelectorAll(BINARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARYCHILD_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(UNARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_WHEN_SPAN).length).toEqual(1);
+    expect(doc.querySelectorAll(TOKEN_THEN_SPAN).length).toEqual(1);
+    expect(doc.querySelectorAll(TOKEN_ELSE_SPAN).length).toEqual(1);
+    expect(doc.querySelectorAll(TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(2);
+    expect(Array.from(doc.querySelectorAll(TOKEN_OPERATOR_SPAN)).map(getTextArray)).toEqual([
       'age at',
       '>=',
       'map',
@@ -193,32 +221,32 @@ describe('test du mapping', () => {
       'map',
       'to',
     ]);
-    expect(wrapper.find(HtmlSelector.TOKEN_VALUE_SPAN).map(getTextArray)).toEqual(['18', 'true', 'false']);
-    expect(wrapper.find(HtmlSelector.TOKEN_FIELD_SPAN).map(getTextArray)).toEqual([
+    expect(Array.from(doc.querySelectorAll(TOKEN_VALUE_SPAN)).map(getTextArray)).toEqual(['18', 'true', 'false']);
+    expect(Array.from(doc.querySelectorAll(TOKEN_FIELD_SPAN)).map(getTextArray)).toEqual([
       'user.birth',
       'user.today',
       'user.b',
       'user.b',
     ]);
-    expect(wrapper.find(HtmlSelector.TOKEN_NARY_SPAN).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_NARY_SPAN).length).toEqual(0);
   });
   it('conditional multiple mapping to booleanField', () => {
     rule = when(dateField.ageAt(dateField2).greaterOrEquals(18)).then(
       mappings(map(true).to(boolField), map(true).to(boolField))
     );
-    wrapper = mount(<GetHtml metadata={rule.metadata} />);
-    expect(wrapper.find(HtmlSelector.NARY_OL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARY_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.NARY_LI).length).toEqual(2);
-    expect(wrapper.find(HtmlSelector.LEAF_LI).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.WHEN_UL).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.BINARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.BINARYCHILD_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.UNARY_UL).length).toEqual(0);
-    expect(wrapper.find(HtmlSelector.TOKEN_WHEN_SPAN).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.TOKEN_THEN_SPAN).length).toEqual(1);
-    expect(wrapper.find(HtmlSelector.TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(2);
-    expect(wrapper.find(HtmlSelector.TOKEN_OPERATOR_SPAN).map(getTextArray)).toEqual([
+    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(NARY_LI).length).toEqual(2);
+    expect(doc.querySelectorAll(LEAF_LI).length).toEqual(0);
+    expect(doc.querySelectorAll(WHEN_UL).length).toEqual(1);
+    expect(doc.querySelectorAll(BINARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(BINARYCHILD_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(UNARY_UL).length).toEqual(0);
+    expect(doc.querySelectorAll(TOKEN_WHEN_SPAN).length).toEqual(1);
+    expect(doc.querySelectorAll(TOKEN_THEN_SPAN).length).toEqual(1);
+    expect(doc.querySelectorAll(TOKEN_SINGLE_MAPPING_SPAN).length).toEqual(2);
+    expect(Array.from(doc.querySelectorAll(TOKEN_OPERATOR_SPAN)).map(getTextArray)).toEqual([
       'age at',
       '>=',
       'map',
@@ -226,17 +254,17 @@ describe('test du mapping', () => {
       'map',
       'to',
     ]);
-    expect(wrapper.find(HtmlSelector.TOKEN_VALUE_SPAN).map(getTextArray)).toEqual(['18', 'true', 'true']);
-    expect(wrapper.find(HtmlSelector.TOKEN_FIELD_SPAN).map(getTextArray)).toEqual([
+    expect(Array.from(doc.querySelectorAll(TOKEN_VALUE_SPAN)).map(getTextArray)).toEqual(['18', 'true', 'true']);
+    expect(Array.from(doc.querySelectorAll(TOKEN_FIELD_SPAN)).map(getTextArray)).toEqual([
       'user.birth',
       'user.today',
       'user.b',
       'user.b',
     ]);
-    expect(wrapper.find(HtmlSelector.TOKEN_NARY_SPAN).length).toEqual(0);
+    expect(Array.from(doc.querySelectorAll(TOKEN_NARY_SPAN)).length).toEqual(0);
   });
 });
 
 afterEach(() => {
-  console.log(rule.metadata.readable + '\n' + wrapper.html());
+  console.log(rule.metadata.readable);
 });
