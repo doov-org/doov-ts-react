@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as DOOV from 'doov';
 import { render } from '@testing-library/react';
 import { Model, User } from './model';
-import { GetHtml } from '../src/doov-react';
+import { DoovReact } from '../src/doov-react';
 import { HtmlSelector } from './HtmlSelector';
 import NARY_OL = HtmlSelector.NARY_OL;
 import BINARY_LI = HtmlSelector.BINARY_LI;
@@ -41,7 +41,7 @@ describe('tests of or', function() {
     B = DOOV.lift(BooleanFunction, false);
     C = DOOV.lift(BooleanFunction, true);
     rule = when(A.or(B.or(C))).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
 
     expect(rule.execute().value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
@@ -60,7 +60,7 @@ describe('tests of or', function() {
     B = DOOV.lift(BooleanFunction, true);
     C = DOOV.lift(BooleanFunction, true);
     rule = when(A.or(B.and(C))).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
 
     expect(rule.execute().value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
@@ -78,7 +78,7 @@ describe('tests of or', function() {
     A = DOOV.lift(BooleanFunction, false);
     B = DOOV.lift(BooleanFunction, false);
     rule = when(A.or(B)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
 
     expect(rule.execute().value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
@@ -97,7 +97,7 @@ describe('tests of or', function() {
     B = DOOV.lift(BooleanFunction, false);
     C = DOOV.lift(BooleanFunction, true);
     rule = when(A.or(B.and(C))).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
 
     expect(rule.execute().value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
@@ -115,7 +115,7 @@ describe('tests of or', function() {
     A = DOOV.lift(BooleanFunction, true);
     B = DOOV.lift(BooleanFunction, false);
     rule = when(A.or(B)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
 
     expect(rule.execute().value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
@@ -133,7 +133,7 @@ describe('tests of or', function() {
     A = DOOV.lift(BooleanFunction, false);
     B = DOOV.lift(BooleanFunction, true);
     rule = when(A.or(B)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
 
     expect(rule.execute().value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
@@ -151,7 +151,7 @@ describe('tests of or', function() {
     A = DOOV.lift(BooleanFunction, true);
     B = DOOV.lift(BooleanFunction, true);
     rule = when(A.or(B)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
 
     expect(rule.execute().value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
@@ -169,7 +169,7 @@ describe('tests of or', function() {
     A = zeroField.lesserThan(4);
     B = yesterdayField.before(DOOV.DateFunction.today());
     rule = when(A.or(B)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
 
     expect(rule.execute(model).value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
@@ -194,7 +194,7 @@ describe('tests of or', function() {
         .or(C)
         .or(D)
     ).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
 
     expect(rule.execute(model).value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);

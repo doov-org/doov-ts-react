@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as DOOV from 'doov';
 import { render } from '@testing-library/react';
 import { Model, User } from './model';
-import { GetHtml } from '../src/doov-react';
+import { DoovReact } from '../src/doov-react';
 import { HtmlSelector } from './HtmlSelector';
 import NARY_OL = HtmlSelector.NARY_OL;
 import BINARY_LI = HtmlSelector.BINARY_LI;
@@ -40,7 +40,7 @@ describe('tests of matchAll', () => {
     B = DOOV.lift(BooleanFunction, true);
     C = DOOV.lift(BooleanFunction, true);
     rule = when(matchAll(A, B, C)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute().value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -58,7 +58,7 @@ describe('tests of matchAll', () => {
     B = DOOV.lift(BooleanFunction, true);
     C = DOOV.lift(BooleanFunction, false);
     rule = when(matchAll(A, B, C)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute().value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -76,7 +76,7 @@ describe('tests of matchAll', () => {
     B = DOOV.lift(BooleanFunction, false);
     C = DOOV.lift(BooleanFunction, false);
     rule = when(matchAll(A, B, C)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute().value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -94,7 +94,7 @@ describe('tests of matchAll', () => {
     B = DOOV.lift(BooleanFunction, false);
     C = DOOV.lift(BooleanFunction, false);
     rule = when(matchAll(A, B, C)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute().value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -112,7 +112,7 @@ describe('tests of matchAll', () => {
     B = yesterdayField.after(DOOV.DateFunction.today());
     C = somethingField.matches('^other.*');
     rule = when(matchAll(A, B, C)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(3);

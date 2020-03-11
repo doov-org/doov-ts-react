@@ -1,8 +1,12 @@
 import * as React from 'react';
-import { Metadata } from 'doov';
+import * as DOOV from 'doov';
+import { Metadata, BinaryMetadata, ValueMetadata, FunctionMetadata, ValidationRule } from 'doov';
+import { Operator, OperatorReturnType } from 'doov/dist/types/dsl/Operator';
+import { Lang, opStrings } from './language/Localization';
 import { HtmlClass } from './HtmlClass';
-import { BinaryMetadata } from 'doov';
-import {
+export { Lang };
+
+const {
   AND,
   ELSE,
   NOT,
@@ -19,13 +23,7 @@ import {
   MONTH_OF,
   DATE_OF,
   POSITION,
-} from 'doov';
-import { Operator, OperatorReturnType } from 'doov/dist/types/dsl/Operator';
-import { ValueMetadata } from 'doov';
-import { Lang, opStrings } from './language/Localization';
-import { ValidationRule } from 'doov';
-import { FunctionMetadata } from 'doov';
-export { Lang };
+} = DOOV;
 
 export interface HtmlProps {
   metadata: Metadata;
@@ -63,7 +61,7 @@ const When = (props: HtmlProps) => {
       <>
         <span className={HtmlClass.CSS_WHEN}>{getStringFromLocale(metadata.operator!.readable)}</span>
         <ul className={HtmlClass.CSS_UL_WHEN}>
-          <GetHtml metadata={metadata.children!()[0]} parent={metadata} fields={fields} />
+          <DoovReact metadata={metadata.children!()[0]} parent={metadata} fields={fields} />
         </ul>
       </>
     );
@@ -72,7 +70,7 @@ const When = (props: HtmlProps) => {
       <>
         <span className={HtmlClass.CSS_WHEN}>{getStringFromLocale(metadata.operator!.readable)}</span>
         <ul className={HtmlClass.CSS_UL_WHEN}>
-          <GetHtml metadata={metadata.children!()[0]} parent={metadata} fields={fields} />
+          <DoovReact metadata={metadata.children!()[0]} parent={metadata} fields={fields} />
         </ul>
         <span className={HtmlClass.CSS_VALIDATE}>{getStringFromLocale(VALIDATE.readable)}</span>
       </>
@@ -86,7 +84,7 @@ const PrefixUnary = (props: HtmlProps) => {
     <>
       <span className={HtmlClass.CSS_OPERATOR}>{getStringFromLocale(metadata.operator!.readable)}</span>
       &nbsp;
-      <GetHtml metadata={metadata.children!()[0]} parent={metadata} fields={fields} />
+      <DoovReact metadata={metadata.children!()[0]} parent={metadata} fields={fields} />
     </>
   );
 };
@@ -95,7 +93,7 @@ const PostfixUnary = (props: HtmlProps) => {
   const { metadata, fields } = props;
   return (
     <>
-      <GetHtml metadata={metadata.children!()[0]} parent={metadata} fields={fields} />
+      <DoovReact metadata={metadata.children!()[0]} parent={metadata} fields={fields} />
       &nbsp;
       <span className={HtmlClass.CSS_OPERATOR}>{getStringFromLocale(metadata.operator!.readable)}</span>
     </>
@@ -144,10 +142,10 @@ const BinaryBr = (props: HtmlProps) => {
   const fields = props.fields;
   return (
     <>
-      <GetHtml metadata={left} parent={props.metadata} fields={fields} />
+      <DoovReact metadata={left} parent={props.metadata} fields={fields} />
       <br />
       <span className={HtmlClass.CSS_OPERATOR}>{getStringFromLocale(op.readable)}</span>&nbsp;
-      <GetHtml metadata={right} parent={props.metadata} fields={fields} />
+      <DoovReact metadata={right} parent={props.metadata} fields={fields} />
     </>
   );
 };
@@ -159,9 +157,9 @@ const BinarySpace = (props: HtmlProps) => {
   const fields = props.fields;
   return (
     <>
-      <GetHtml metadata={left} parent={props.metadata} fields={fields} />
+      <DoovReact metadata={left} parent={props.metadata} fields={fields} />
       &nbsp;<span className={HtmlClass.CSS_OPERATOR}>{getStringFromLocale(op.readable)}</span>&nbsp;
-      <GetHtml metadata={right} parent={props.metadata} fields={fields} />
+      <DoovReact metadata={right} parent={props.metadata} fields={fields} />
     </>
   );
 };
@@ -309,17 +307,17 @@ const ConditionalMapping = (props: HtmlProps) => {
   if (pmdType === 'MULTIPLE_MAPPING' && pmdOp !== THEN && pmdOp !== ELSE) {
     return (
       <li className={HtmlClass.CSS_LI_NARY}>
-        <GetHtml metadata={whenMeta} parent={metadata} fields={fields} />
-        <GetHtml metadata={thenMeta} parent={metadata} fields={fields} />
-        {elseMeta && <GetHtml metadata={elseMeta} parent={metadata} fields={fields} />}
+        <DoovReact metadata={whenMeta} parent={metadata} fields={fields} />
+        <DoovReact metadata={thenMeta} parent={metadata} fields={fields} />
+        {elseMeta && <DoovReact metadata={elseMeta} parent={metadata} fields={fields} />}
       </li>
     );
   }
   return (
     <div className={HtmlClass.CSS_SINGLE_MAPPING}>
-      <GetHtml metadata={whenMeta} parent={metadata} fields={fields} />
-      <GetHtml metadata={thenMeta} parent={metadata} fields={fields} />
-      {elseMeta && <GetHtml metadata={elseMeta} parent={metadata} fields={fields} />}
+      <DoovReact metadata={whenMeta} parent={metadata} fields={fields} />
+      <DoovReact metadata={thenMeta} parent={metadata} fields={fields} />
+      {elseMeta && <DoovReact metadata={elseMeta} parent={metadata} fields={fields} />}
     </div>
   );
 };
@@ -329,7 +327,7 @@ const Nary = (props: HtmlProps) => {
   const pmdRT = parent ? (parent.operator ? (parent.operator as OperatorReturnType).returnType : undefined) : undefined;
   const pmdType = parent ? parent.type : undefined;
   const childComponents = metadata.children!().map((e, index) => (
-    <GetHtml key={index} metadata={e} parent={metadata} fields={fields} />
+    <DoovReact key={index} metadata={e} parent={metadata} fields={fields} />
   ));
   if (pmdRT === 'BOOL') {
     return (
@@ -381,7 +379,7 @@ const Iterable = (props: HtmlProps) => {
   const { metadata, fields } = props;
   const childComponents = metadata.children!().map((e, index) => (
     <li key={index}>
-      <GetHtml metadata={e} parent={metadata} fields={fields} />
+      <DoovReact metadata={e} parent={metadata} fields={fields} />
     </li>
   ));
   return <ul className={HtmlClass.CSS_UL_ITERABLE}>{childComponents}</ul>;
@@ -397,11 +395,11 @@ const SingleMapping = (props: HtmlProps) => {
       <span className={HtmlClass.CSS_SINGLE_MAPPING}>
         <span className={HtmlClass.CSS_OPERATOR}>{getStringFromLocale(SINGLE_MAPPING.readable)}</span>
         &nbsp;
-        <GetHtml metadata={metadata.children!()[0]} parent={metadata} fields={fields} />
+        <DoovReact metadata={metadata.children!()[0]} parent={metadata} fields={fields} />
         &nbsp;
         <span className={HtmlClass.CSS_OPERATOR}>{getStringFromLocale(TO.readable)}</span>
         &nbsp;
-        <GetHtml metadata={metadata.children!()[1]} parent={metadata} fields={fields} />
+        <DoovReact metadata={metadata.children!()[1]} parent={metadata} fields={fields} />
       </span>
       &nbsp;
     </>
@@ -436,7 +434,7 @@ const Validation = (props: HtmlPropsExtended) => {
     }
     return (
       <div className={HtmlClass.CSS_VALIDATION_RULE}>
-        <GetHtml metadata={metadata.children!()[0]} fields={fields} />
+        <DoovReact metadata={metadata.children!()[0]} fields={fields} />
         &nbsp;
         {spanErrorEmpty}
       </div>
@@ -444,7 +442,7 @@ const Validation = (props: HtmlPropsExtended) => {
   }
   return (
     <div className={HtmlClass.CSS_VALIDATION_RULE}>
-      <GetHtml metadata={metadata.children!()[0]} fields={fields} />
+      <DoovReact metadata={metadata.children!()[0]} fields={fields} />
     </div>
   );
 };
@@ -452,7 +450,7 @@ const Validation = (props: HtmlPropsExtended) => {
 const MultipleValidations = (props: HtmlPropsExtended) => {
   const { metadata, validations, fields } = props;
   const childComponents = metadata.children!().map((e, index) => (
-    <GetHtml
+    <DoovReact
       key={index}
       metadata={e}
       parent={metadata}
@@ -463,7 +461,7 @@ const MultipleValidations = (props: HtmlPropsExtended) => {
   return <>{childComponents}</>;
 };
 
-export const GetHtml = (props: HtmlPropsExtended) => {
+export const DoovReact = (props: HtmlPropsExtended) => {
   const { metadata, parent, lang, validations, validation, fields } = props;
   if (lang) opStrings.setLanguage(lang);
   switch (metadata.type) {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as DOOV from 'doov';
 import { render } from '@testing-library/react';
 import { Model, User } from './model';
-import { GetHtml } from '../src/doov-react';
+import { DoovReact } from '../src/doov-react';
 import { HtmlSelector } from './HtmlSelector';
 import NARY_OL = HtmlSelector.NARY_OL;
 import BINARY_LI = HtmlSelector.BINARY_LI;
@@ -39,7 +39,7 @@ describe('tests of count', () => {
     A = DOOV.lift(BooleanFunction, false);
     B = DOOV.lift(BooleanFunction, false);
     rule = when(count(A, B).greaterThan(1)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute().value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -57,7 +57,7 @@ describe('tests of count', () => {
     A = DOOV.lift(BooleanFunction, true);
     B = DOOV.lift(BooleanFunction, false);
     rule = when(count(A, B).greaterThan(1)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute().value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -75,7 +75,7 @@ describe('tests of count', () => {
     A = DOOV.lift(BooleanFunction, true);
     B = DOOV.lift(BooleanFunction, false);
     rule = when(count(A, B).greaterOrEquals(1)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute().value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -93,7 +93,7 @@ describe('tests of count', () => {
     A = DOOV.lift(BooleanFunction, true);
     B = DOOV.lift(BooleanFunction, true);
     rule = when(count(A, B).greaterThan(1)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute().value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -111,7 +111,7 @@ describe('tests of count', () => {
     A = zeroField.lesserThan(4);
     B = yesterdayField.before(DOOV.DateFunction.today());
     rule = when(count(A, B).greaterThan(1)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(2);

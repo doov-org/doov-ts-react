@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as DOOV from 'doov';
 import { Model, User } from './model';
 import { render } from '@testing-library/react';
-import { GetHtml } from '../src/doov-react';
+import { DoovReact } from '../src/doov-react';
 import { BooleanFunction, SingleValidationRule } from 'doov';
 import { HtmlSelector } from './HtmlSelector';
 import NARY_OL = HtmlSelector.NARY_OL;
@@ -40,7 +40,7 @@ describe('combined tests', () => {
     B = DOOV.lift(BooleanFunction, false);
     C = DOOV.lift(BooleanFunction, false);
     rule = DOOV.when(DOOV.matchAll(A, B, C)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute().value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -57,7 +57,7 @@ describe('combined tests', () => {
     A = DOOV.lift(BooleanFunction, true);
     B = DOOV.lift(BooleanFunction, false);
     rule = DOOV.when(A.and(B)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute().value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(1);
@@ -72,7 +72,7 @@ describe('combined tests', () => {
   });
   it('reduce zeroInt', () => {
     rule = DOOV.when(zeroField.notEq(0)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -88,7 +88,7 @@ describe('combined tests', () => {
   });
   it('reduce links', () => {
     rule = DOOV.when(links.contains('c')).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -105,7 +105,7 @@ describe('combined tests', () => {
   it('reduce undefined', () => {
     A = DOOV.date(DOOV.field('user', 'birth'));
     rule = DOOV.when(A.isUndefined()).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -123,7 +123,7 @@ describe('combined tests', () => {
     rule = DOOV.when(
       stringField1.matches('^some.*').or(stringField2.matches('^other.*'))
     ).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(1);

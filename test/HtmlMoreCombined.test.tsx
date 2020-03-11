@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as DOOV from 'doov';
 import { Model, User } from './model';
 import { render } from '@testing-library/react';
-import { GetHtml } from '../src/doov-react';
+import { DoovReact } from '../src/doov-react';
 import { SingleValidationRule } from 'doov';
 import { HtmlSelector } from './HtmlSelector';
 import NARY_OL = HtmlSelector.NARY_OL;
@@ -44,7 +44,7 @@ describe('more combined tests', () => {
         .or(dateField.ageAt(dateField).greaterOrEquals(0))
         .and(DOOV.sum(zeroField, zeroField).lesserThan(0))
     ).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(1);
@@ -82,7 +82,7 @@ describe('more combined tests', () => {
         .and(DOOV.matchAny(boolField.eq(true), boolField.not().and(zeroField.between(0, 1))))
         .and(zeroField.eq(1))
     ).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(3);
@@ -138,7 +138,7 @@ describe('more combined tests', () => {
             .and(dateField.ageAt(dateField).greaterOrEquals(0))
         )
     ).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(1);
@@ -179,7 +179,7 @@ describe('more combined tests', () => {
         .minusDays(2)
         .before(DOOV.DateFunction.tomorrow())
     ).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
   });
 });
 
