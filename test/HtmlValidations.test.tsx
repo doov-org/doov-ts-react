@@ -1,4 +1,4 @@
-import { GetHtml } from '../src/doov-react';
+import { DoovReact } from '../src/doov-react';
 import { HtmlSelector } from './HtmlSelector';
 import NARY_OL = HtmlSelector.NARY_OL;
 import BINARY_LI = HtmlSelector.BINARY_LI;
@@ -30,7 +30,7 @@ describe('tests of validations', () => {
     A = DOOV.lift(BooleanFunction, false);
     B = DOOV.lift(BooleanFunction, false);
     rule = DOOV.validations(when(A).validate(), when(B).validate());
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
     expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
@@ -47,7 +47,7 @@ describe('tests of validations', () => {
       DOOV.when(bobField.startsWith('B')).validate(),
       DOOV.when(link0.isDefined().and(bobField.contains('Bob'))).validate()
     );
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(1);
     expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);

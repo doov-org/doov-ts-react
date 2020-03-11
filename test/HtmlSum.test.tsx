@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as DOOV from 'doov';
 import { render } from '@testing-library/react';
 import { Model, User } from './model';
-import { GetHtml } from '../src/doov-react';
+import { DoovReact } from '../src/doov-react';
 import { HtmlSelector } from './HtmlSelector';
 import NARY_OL = HtmlSelector.NARY_OL;
 import BINARY_LI = HtmlSelector.BINARY_LI;
@@ -34,7 +34,7 @@ const getTextArray = (elt: Element) => elt.textContent;
 describe('tests of sum', () => {
   it('sum 1 1 greaterThan 1', () => {
     rule = when(sum(A, B).greaterThan(1)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(true);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -51,7 +51,7 @@ describe('tests of sum', () => {
   });
   it('sum 1 1 greaterThan 3', () => {
     rule = when(sum(A, B).greaterThan(3)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(1);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
@@ -68,7 +68,7 @@ describe('tests of sum', () => {
   });
   it('sum sum 1 sum 2 greaterThan 3', () => {
     rule = when(sum(sum(A), sum(B)).greaterThan(3)).validate() as SingleValidationRule;
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(rule.execute(model).value).toEqual(false);
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(3);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);

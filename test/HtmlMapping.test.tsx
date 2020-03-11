@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as DOOV from 'doov';
 import { render } from '@testing-library/react';
 import { Model, User } from './model';
-import { GetHtml } from '../src/doov-react';
+import { DoovReact } from '../src/doov-react';
 import { HtmlSelector } from './HtmlSelector';
 import NARY_OL = HtmlSelector.NARY_OL;
 import BINARY_LI = HtmlSelector.BINARY_LI;
@@ -51,7 +51,7 @@ const getTextArray = (elt: Element) => elt.textContent;
 describe('test du mapping', () => {
   it('map to int field ', () => {
     rule = map(18).to(intField);
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
     expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
@@ -71,7 +71,7 @@ describe('test du mapping', () => {
   });
   it('map to boolean field ', () => {
     rule = map(true).to(boolField);
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
     expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
@@ -91,7 +91,7 @@ describe('test du mapping', () => {
   });
   it('map to date field ', () => {
     rule = map(dateValue).to(dateField);
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
     expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
@@ -111,7 +111,7 @@ describe('test du mapping', () => {
   });
   it('mappings to int field boolean field and date field', () => {
     rule = mappings(map(18).to(intField), map(true).to(boolField), map(dateValue).to(dateField));
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
     expect(doc.querySelectorAll(NARY_LI).length).toEqual(3);
@@ -144,7 +144,7 @@ describe('test du mapping', () => {
     rule = map(dateValue)
       .using(converter(d => d.toString(), 'date to string'))
       .to(stringField);
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
     expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
@@ -169,7 +169,7 @@ describe('test du mapping', () => {
     rule = map(stringField, stringField2)
       .using(biConverter((s1, s2) => s1 + ' ' + s2, 'combine names'))
       .to(stringField2);
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
     expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
@@ -200,7 +200,7 @@ describe('test du mapping', () => {
     rule = when(dateField.ageAt(dateField2).greaterOrEquals(18))
       .then(map(true).to(boolField))
       .otherwise(map(false).to(boolField));
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
     expect(doc.querySelectorAll(NARY_LI).length).toEqual(0);
@@ -234,7 +234,7 @@ describe('test du mapping', () => {
     rule = when(dateField.ageAt(dateField2).greaterOrEquals(18)).then(
       mappings(map(true).to(boolField), map(true).to(boolField))
     );
-    doc = render(<GetHtml metadata={rule.metadata} />).container;
+    doc = render(<DoovReact metadata={rule.metadata} />).container;
     expect(doc.querySelectorAll(NARY_OL).length).toEqual(0);
     expect(doc.querySelectorAll(BINARY_LI).length).toEqual(0);
     expect(doc.querySelectorAll(NARY_LI).length).toEqual(2);
