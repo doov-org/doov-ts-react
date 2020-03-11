@@ -22,7 +22,7 @@
   },
   "source": "src/doov-react.tsx",
   "main": "dist/doov-react.js",
-  "umd:name": "DOOV",
+  "umd:name": "DoovReact",
   "umd:main": "dist/doov-react.umd.js",
   "module": "dist/doov-react.es.js",
   "types": "dist/types/doov-react.d.ts",

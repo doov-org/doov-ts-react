@@ -1,8 +1,12 @@
 import * as React from 'react';
-import { Metadata } from 'doov';
+import * as DOOV from 'doov';
+import { Metadata, BinaryMetadata, ValueMetadata, FunctionMetadata, ValidationRule } from 'doov';
+import { Operator, OperatorReturnType } from 'doov/dist/types/dsl/Operator';
+import { Lang, opStrings } from './language/Localization';
 import { HtmlClass } from './HtmlClass';
-import { BinaryMetadata } from 'doov';
-import {
+export { Lang };
+
+const {
   AND,
   ELSE,
   NOT,
@@ -19,13 +23,7 @@ import {
   MONTH_OF,
   DATE_OF,
   POSITION,
-} from 'doov';
-import { Operator, OperatorReturnType } from 'doov/dist/types/dsl/Operator';
-import { ValueMetadata } from 'doov';
-import { Lang, opStrings } from './language/Localization';
-import { ValidationRule } from 'doov';
-import { FunctionMetadata } from 'doov';
-export { Lang };
+} = DOOV;
 
 export interface HtmlProps {
   metadata: Metadata;
