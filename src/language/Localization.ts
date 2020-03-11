@@ -1,11 +1,30 @@
-import LocalizedStrings from 'localized-strings';
-
 export enum Lang {
   FR = 'fr',
   EN = 'en',
 }
 
-export let opStrings = new LocalizedStrings({
+class LocalizedStrings {
+  private lang: Lang = Lang.EN;
+  private strings: any;
+
+  setLanguage(lang: Lang) {
+    this.lang = lang || this.lang;
+  }
+
+  constructor(strings: any) {
+    this.strings = strings;
+  }
+
+  getString(key: string, language?: string | undefined, omitWarning?: boolean | undefined): string {
+    const localizedStrings = this.strings[language || this.lang];
+    if (!omitWarning) {
+      console.warn('Language "' + language + '" does not exist in localized strings.');
+    }
+    return localizedStrings[key];
+  }
+}
+
+export const opStrings = new LocalizedStrings({
   en: {
     // eslint-disable-next-line @typescript-eslint/camelcase
     single_mapping: 'map',
