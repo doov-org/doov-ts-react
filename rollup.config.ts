@@ -5,6 +5,7 @@ import typescript from 'rollup-plugin-typescript2';
 import { terser } from 'rollup-plugin-terser';
 import json from 'rollup-plugin-json';
 import filesize from 'rollup-plugin-filesize';
+import postcss from 'rollup-plugin-postcss';
 
 import pkg from './package.json';
 
@@ -26,6 +27,10 @@ export default {
     typescript({ useTsconfigDeclarationDir: true }),
     // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
     commonjs(),
+    postcss({
+      extract: true,
+      extensions: ['.css'],
+    }),
     // Allow node_modules resolution, so you can use 'external' to control
     // which external modules to include in the bundle
     // https://github.com/rollup/rollup-plugin-node-resolve#usage

@@ -4,6 +4,7 @@ import { Metadata, BinaryMetadata, ValueMetadata, FunctionMetadata, ValidationRu
 import { Operator, OperatorReturnType } from 'doov/dist/types/dsl/Operator';
 import { Lang, opStrings } from './language/Localization';
 import { HtmlClass } from './HtmlClass';
+import './doov-react.css';
 export { Lang };
 
 const {
