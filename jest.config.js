@@ -2,6 +2,9 @@ module.exports = {
   transform: {
     '.(ts|tsx)': 'ts-jest',
   },
+  moduleNameMapper: {
+    '\\.(css|less|scss|sss|styl)$': '<rootDir>/node_modules/jest-css-modules',
+  },
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
@@ -18,5 +21,4 @@ module.exports = {
       statements: 85,
     },
   },
-  setupFiles: ['<rootDir>/jest.setup.ts'],
 };
