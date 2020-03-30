@@ -1,4 +1,7 @@
 <html>
+  <head>
+    <link rel="stylesheet" href="./dist/doov-react.css" />
+  </head>
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
   <!-- Don't use this in production: -->
@@ -15,7 +18,7 @@
     const mappingRule = DOOV.map(num).to(f);
     const validationRule = DOOV.when(f.eq(num)).validate();
     ReactDOM.render(
-      <div>
+      <div className="doov-react">
         <DoovReact metadata={mappingRule.metadata} fields={{ toto: 'toto' }} />
         <DoovReact metadata={validationRule.metadata} fields={{ toto: 'toto' }} />
       </div>,

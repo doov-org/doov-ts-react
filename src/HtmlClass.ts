@@ -1,4 +1,5 @@
 export enum HtmlClass {
+  CSS_DOOV_REACT = 'doov-react',
   CSS_VALIDATION_RULE = 'dsl-validation-rule',
   CSS_VALIDATE = 'dsl-token-validate',
   CSS_NARY = 'dsl-token-nary',
