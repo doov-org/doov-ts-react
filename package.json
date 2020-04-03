@@ -1,6 +1,6 @@
 {
   "name": "doov-react",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "desciption": "HTML Renderer with React for doov-ts",
   "homepage": "https://doov.io",
   "license": "Apache-2.0",
@@ -75,6 +75,7 @@
     "jest-watch-typeahead": "0.3.1",
     "prettier": "1.17.0",
     "pretty-quick": "1.10.0",
+    "react-dom": "^16.0.0",
     "rimraf": "2.6.3",
     "rollup": "1.17.0",
     "rollup-plugin-commonjs": "10.0.1",
@@ -87,8 +88,7 @@
     "rollup-plugin-typescript2": "0.22.0",
     "ts-jest": "24.0.2",
     "typedoc": "^0.15.4",
-    "typescript": "3.4.5",
-    "react-dom": "^16.0.0"
+    "typescript": "3.4.5"
   },
   "dependencies": {
     "doov": "^0.11.0",
