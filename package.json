@@ -1,6 +1,6 @@
 {
   "name": "doov-react",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "desciption": "HTML Renderer with React for doov-ts",
   "homepage": "https://doov.io",
   "license": "Apache-2.0",
