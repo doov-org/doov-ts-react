@@ -2,7 +2,7 @@
   "name": "doov-react",
   "version": "0.1.6",
   "desciption": "HTML Renderer with React for doov-ts",
-  "homepage": "https://doov.io",
+  "homepage": "https://doov.org",
   "license": "Apache-2.0",
   "maintainers": [
     {
@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/doov-io/doov-ts-react.git"
+    "url": "git://github.com/doov-org/doov-ts-react.git"
   },
   "source": "src/doov-react.tsx",
   "main": "dist/doov-react.js",

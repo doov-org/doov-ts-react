@@ -2,7 +2,7 @@
 
 React renderer for doov-TS rules.
 
-![Node.js CI](https://github.com/doov-io/doov-ts-react/workflows/Node.js%20CI/badge.svg)
+![Node.js CI](https://github.com/doov-org/doov-ts-react/workflows/Node.js%20CI/badge.svg)
 
 ## Local Development
 
